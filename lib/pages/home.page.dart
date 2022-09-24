@@ -15,27 +15,27 @@ class _HomePageState extends State<HomePage> {
   String textOperaciones = '';
 
   String checkEquation(String equation) {
-    String expresion = equation;
-    if (expresion.contains('√')) {
-      String digitos = '0123456789';
-      int index = expresion.indexOf('√');
-      String numeros = '';
-      for (var i = index + 1; i < expresion.length; i++) {
-        if (digitos.contains(expresion[i])) {
-          numeros += expresion[i];
+    String expression = equation;
+    if (expression.contains('√')) {
+      String digits = '0123456789';
+      int index = expression.indexOf('√');
+      String numbers = '';
+      for (var i = index + 1; i < expression.length; i++) {
+        if (digits.contains(expression[i])) {
+          numbers += expression[i];
         } else {
           break;
         }
       }
-      String auxiliar = expresion.replaceAll('√$numeros', 'sqrt($numeros)');
-      expresion = auxiliar;
+      String auxiliar = expression.replaceAll('√$numbers', 'sqrt($numbers)');
+      expression = auxiliar;
     }
 
-    if (expresion.contains('%')) {
-      String auxiliar = expresion.replaceAll('%', '/100');
-      expresion = auxiliar;
+    if (expression.contains('%')) {
+      String auxiliar = expression.replaceAll('%', '/100');
+      expression = auxiliar;
     }
-    return expresion;
+    return expression;
   }
 
   @override
@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 2,
             child: Container(
+              //height: 100,
               color: Colors.grey,
               child: Row(
                 children: [
@@ -108,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                     ButtonModel(
                         titulo: "1/x",
                         metodo: () {
-                          print("1/X");
+                          print("1/x");
                         }),
                     ButtonModel(
                         titulo: "x²",
@@ -242,10 +243,11 @@ class _HomePageState extends State<HomePage> {
                         }),
                     ButtonModel(
                         titulo: "=",
+                        
                         metodo: () {
                           setState(() {
                             textOperaciones += '\n$textResultados';
-                            const parser = expresionParser();
+                            const parser = ExpressionParser();
                             textResultados = parser
                                 .evaluate(checkEquation(textResultados))
                                 .toString();
